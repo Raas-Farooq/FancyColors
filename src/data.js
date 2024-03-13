@@ -27,28 +27,6 @@ function Input(props){
       content:""
     })
   }
-  // const [title, setTitle] = useState('');
-  // const [content, setContent] = useState('');
-
-  // const handleAdd = () => {
-  //   // setContent(" ");
-  // }
-
-  // const handleTitle = (e) => {
-
-  //   const tit = e.target.value;
-    
-  //   setTitle(tit)
-  // }
-  // const handleContent = (e) => {
-   
-  //   const cont = e.target.value;
-    
-  //   setContent(cont)
-  // }
-  // useEffect(() => {
-     
-  // }, [content,title]);
     // console.log("these are your props: ", props.fun);
       return (
         <div>
