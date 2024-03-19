@@ -4,9 +4,7 @@ import React from 'react';
 function Birthday({birthdayData}){
     console.log("birthDay under Reveal: ", birthdayData);
     if(!birthdayData){
-        // return (
-        //     // <h3> 0 Birthday Remaining </h3>
-        // )
+        
     }
         else {
             return (

@@ -31,11 +31,14 @@ mongoose.connect('mongodb://localhost:27017/Birthday',{
 
 app.get('/start', async (req,res) => {
     try{
-        let birthdaymodel = await BirthdayMod.find();
-        if(!birthdaymodel){
-            console.log("empty");
-            birthdaymodel = await birthdaymodel.create(BirthdayData)
-        }
+        let birthdaymodel = await BirthdayMod.find({});
+        const ids = birthdaymodel.map(birth => birth.id);
+        
+        birthdayData.filter(person => !ids.includes(person.id))
+        // if(!birthdaymodel){
+        //     console.log("empty");
+        //     birthdaymodel = await birthdaymodel.create(BirthdayData)
+        // }
         res.json(birthdaymodel);
     }
     catch(err) {
@@ -52,7 +55,7 @@ app.get('/clear', async (req,res) => {
         res.json(birthdaymodel);
     }
     catch(err){
-        
+
     }
 })
 app.listen(port, () => console.log(`listening on ${port}`) );

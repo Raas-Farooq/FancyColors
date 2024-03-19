@@ -1,12 +1,11 @@
 import mongoose from 'mongoose';
 
 const BirthdaySchema = new mongoose.Schema({
-    birthday:{
     id:Number,
     name:String,
     age:String,
-    image:Number
-    }
+    image:String
+    
 });
 
 const BirthdayMod = mongoose.model('BirthdayMod', BirthdaySchema);
