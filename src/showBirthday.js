@@ -11,7 +11,7 @@ function Birthday({birthdayData}){
                 <React.Fragment>
                     {birthdayData.map((bir,ind) => 
               
-                        <div className="card">
+                        <div className="card" key={ind}>
                             <img src={bir.image} width="60px" />
                             <div>
                                 <h5 key={bir.id}>{bir.name}</h5>

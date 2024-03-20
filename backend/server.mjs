@@ -20,10 +20,11 @@ mongoose.connect('mongodb://localhost:27017/Birthday',{
     
     console.log("Mongoose Bro is Connected " + BirthdayData);
     console.log("Mongoose Bro is Connected " + JSON.stringify(BirthdayData)); 
-    BirthdayMod.insertMany(BirthdayData).then(() => console.log("inserted data success")).
-    catch(err => {
-        console.log('this is the errp ', err);
-    })
+    
+    // BirthdayMod.insertMany(BirthdayData).then(() => console.log("inserted data success")).
+    // catch(err => {
+    //     console.log('this is the errp ', err);
+    // })
 
 }).catch(err => {
     console.log("check your error: ",err);
@@ -32,13 +33,16 @@ mongoose.connect('mongodb://localhost:27017/Birthday',{
 app.get('/start', async (req,res) => {
     try{
         let birthdaymodel = await BirthdayMod.find({});
-        const ids = birthdaymodel.map(birth => birth.id);
+        if(birthdaymodel.length <= 0){
+            console.log("empty");
+            await BirthdayMod.insertMany(BirthdayData)
+            birthdaymodel = await BirthdayMod.find({});
+        }
+        // const ids = birthdaymodel.map(birth => birth.id);
+        // console.log("ids :", ids);
+        // const updated = BirthdayData.filter(person => !ids.includes(person.id))
+        // await BirthdayMod.insertMany(updated);
         
-        birthdayData.filter(person => !ids.includes(person.id))
-        // if(!birthdaymodel){
-        //     console.log("empty");
-        //     birthdaymodel = await birthdaymodel.create(BirthdayData)
-        // }
         res.json(birthdaymodel);
     }
     catch(err) {
@@ -48,8 +52,10 @@ app.get('/start', async (req,res) => {
 
 app.get('/clear', async (req,res) => {
     try{
-        const birthdaymodel = await birthdaymodel.find();
-        birthdaymodel = [];
+
+        await BirthdayMod.deleteMany({});
+        const birthdaymodel = await BirthdayMod.find();
+        console.log("show us birthdamodel: ", birthdaymodel);
         await birthdaymodel.save();
 
         res.json(birthdaymodel);
@@ -58,5 +64,18 @@ app.get('/clear', async (req,res) => {
 
     }
 })
+
+// app.get('/clear', async (req,res) => {
+//     try{
+//         const birthdaymodel = await birthdaymodel.find();
+//         birthdaymodel = [];
+//         await birthdaymodel.save();
+
+//         res.json(birthdaymodel);
+//     }
+//     catch(err){
+
+//     }
+// })
 app.listen(port, () => console.log(`listening on ${port}`) );
 

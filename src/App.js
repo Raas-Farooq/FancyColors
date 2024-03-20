@@ -15,32 +15,25 @@ function App(){
     }).
     catch(err => console.log("Effort:lets seee the Problem and Solve it by THe Help Of Allah(SWT)  ", err))
   }, []);
-  // fetch('http://localhost:5000/start').then(response => response.json()).
-  // then(data => 
-  //   {
-  //     data.forEach(person => 
-  //     {
-  //       console.log("this is the fetched legal Info: ", person)
-  // })
-   
-  // }).catch(err => console.log("lets seee the Problem and Solve it by THe Help Of Allah(SWT) ", err))
-// console.log("data: ", birthdayData);
-
-// const [info, setInfo] = useState(birthdayData);
-// console.log("info: ", info);
-
-
-// const modifyBD = (e) => {
-//   e.preventDefault();
-//   setInfo('');
-// }
+  
+const modifyBD = (e) => {
+  
+  e.preventDefault();
+  fetch('http://localhost:5000/clear').then
+  (response => response.json()).then(data => {
+    console.log('that is what you rturnd: ', data);
+  }).catch(err => {
+    console.log("see Your mistakes in positive Way: ", err);
+  })
+  setBirthdayData([]);
+}
   return (
     <div className="container">
       {console.log("Fast Recovery:", birthdayData)}
         <div className="centerBox">
             <h3> BirthDay Celebrations</h3>
-              {/* <RevealBD birthdayData ={info} /> */}
-            {/* <button onClick={modifyBD}> Clear </button> */}
+              <RevealBD birthdayData ={birthdayData} />
+            <button onClick={modifyBD}> Clear </button>
         </div>
     </div> 
   )
