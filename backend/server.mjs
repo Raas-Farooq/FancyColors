@@ -54,11 +54,7 @@ app.get('/clear', async (req,res) => {
     try{
 
         await BirthdayMod.deleteMany({});
-        const birthdaymodel = await BirthdayMod.find();
-        console.log("show us birthdamodel: ", birthdaymodel);
-        await birthdaymodel.save();
-
-        res.json(birthdaymodel);
+        res.json({message: 'Data is cleared Buddy!'});
     }
     catch(err){
 
