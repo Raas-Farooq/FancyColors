@@ -21,10 +21,7 @@ mongoose.connect('mongodb://localhost:27017/Birthday',{
     console.log("Mongoose Bro is Connected " + BirthdayData);
     console.log("Mongoose Bro is Connected " + JSON.stringify(BirthdayData)); 
     
-    // BirthdayMod.insertMany(BirthdayData).then(() => console.log("inserted data success")).
-    // catch(err => {
-    //     console.log('this is the errp ', err);
-    // })
+    
 
 }).catch(err => {
     console.log("check your error: ",err);
@@ -61,17 +58,6 @@ app.get('/clear', async (req,res) => {
     }
 })
 
-// app.get('/clear', async (req,res) => {
-//     try{
-//         const birthdaymodel = await birthdaymodel.find();
-//         birthdaymodel = [];
-//         await birthdaymodel.save();
 
-//         res.json(birthdaymodel);
-//     }
-//     catch(err){
-
-//     }
-// })
 app.listen(port, () => console.log(`listening on ${port}`) );
 
