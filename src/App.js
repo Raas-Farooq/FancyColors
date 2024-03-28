@@ -1,47 +1,62 @@
 import React,{useState,useEffect} from 'react';
 import {v4 as uuidv4} from 'uuid'; 
 import './index.css';
-// import birthdayData from './data.mjs'
-import RevealBD from './showBirthday.js'
+import ShowTours from './displayTours';
 
 function App(){
-  const [birthdayData, setBirthdayData] = useState([]);
+  const [myTours, setTours] = useState([]);
 
-  useEffect( () => {
-    fetch('http://localhost:5000/start').then(response => response.json()).
+  useEffect(() => {
+    fetch('http://localhost:5000/load').then(response => response.json()).
     then(data => {
       console.log('Insight of data: ', data);
-      setBirthdayData(data);
+      setTours(data);
+      console.log('myTours: ', myTours);
     }).
     catch(err => console.log("Effort:lets seee the Problem and Solve it by THe Help Of Allah(SWT)  ", err))
   }, []);
-  
-const modifyBD = (e) => {
-  
-  e.preventDefault();
-  fetch('http://localhost:5000/clear').then
-  (response => {
-    console.log('Response status:', response.status);
-    response.json()
-}).then(data => {
-    console.log('data hass removed');
-    setBirthdayData([])
-  }).catch(err => {
-    console.log("see Your mistakes in positive Way: ", err);
-  })
-  
-}
-  return (
-    <div className="container">
-      {console.log("Fast Recovery:", birthdayData)}
-        <div className="centerBox">
-            <h3>{birthdayData.length} BirthDay Celebrations</h3>
-              <RevealBD birthdayData ={birthdayData} />
-            <button onClick={modifyBD}> Clear </button>
-        </div>
-    </div> 
-  )
+
+
+  function getClicked(target){
+    const container = document.querySelector('.ToursContainer');
+    const specialId = target.id;
+    console.log("specialId: ", specialId);
+    const tourCard = target.closest('.toursCard');
+    if (tourCard) {
+      fetch('http://localhost:5000/removeElement', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body:JSON.stringify({id: specialId })
+      })
+      
+      .then(response => response.json()).then(
+        data => {
+          console.log("this is the Data: ", data);
+        }).catch(err => {
+          console.log("Love the Weaknesses Of Life: ", err);
+        })
+        tourCard.remove(tourCard);
+    }
+    // container.remove(target);
+  }
+
+
+return (
+  <div>
+    <h2> Tours Of Life</h2>
+    <div className="ToursContainer">
+    {myTours.map(tour => {
+        return (
+           <div class="toursCard"><ShowTours tour={tour} remove={getClicked} /> </div>
+        )
+      })}
+    </div>
+  </div>
+)
 
 }
-
 export default App;
+
+

@@ -1,63 +1,101 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import BirthdayData from '../src/data.mjs';
-import BirthdayMod from './models/BirthdayModel.js';
+import {receiveData} from '../src/data.mjs';
+
 import mongoose from 'mongoose';
 
 const port = process.env.PORT || 5000;
 
 const app = express();
+
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    next();
+  });
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json());
 
 
-mongoose.connect('mongodb://localhost:27017/Birthday',{
+
+let mydata;
+mongoose.connect('mongodb://localhost:27017/toursDb',{
     useNewUrlParser:true,
     useUnifiedTopology:true
 }).then(() => {
     
-    console.log("Mongoose Bro is Connected " + BirthdayData);
-    console.log("Mongoose Bro is Connected " + JSON.stringify(BirthdayData)); 
+    console.log("Mongoose Bro is Connected ");
     
-    
+    // console.log("Mongoose Bro is Connected JSON stringify" + JSON.stringify(receiveData)); 
 
 }).catch(err => {
     console.log("check your error: ",err);
-})
+});
 
-app.get('/start', async (req,res) => {
+const toursSchema = new mongoose.Schema({
+    id:String,
+    name:String,
+    info:String,
+    image:String,
+    price:String
+});
+
+const toursModel = mongoose.model('toursModel',toursSchema);
+
+
+app.get('/load', async(req,res) => {
     try{
-        let birthdaymodel = await BirthdayMod.find({});
-        if(birthdaymodel.length <= 0){
-            console.log("empty");
-            await BirthdayMod.insertMany(BirthdayData)
-            birthdaymodel = await BirthdayMod.find({});
+        const toursInfo = await toursModel.find({});
+        // * if you wanted to load all the data again then you can run the below code
+        // await toursModel.deleteMany();
+        // const mydata = await receiveData();
+
+        // await toursModel.insertMany(mydata);
+        // const tours = await toursModel.find({});
+        console.log("toursModel:  ", toursInfo);
+        if(toursInfo.length === 0){
+            console.log("i Am Running");
+            toursModel.deleteMany();
+            const tours = await receiveData();
+            toursModel.insertMany(tours);
+            const toursInf = await toursModel.find({});
+            res.json(toursInf);
         }
-        // const ids = birthdaymodel.map(birth => birth.id);
-        // console.log("ids :", ids);
-        // const updated = BirthdayData.filter(person => !ids.includes(person.id))
-        // await BirthdayMod.insertMany(updated);
-        
-        res.json(birthdaymodel);
-    }
-    catch(err) {
-        (res.status(500).json({err:err.message}));
-    }
-})
-
-app.get('/clear', async (req,res) => {
-    try{
-
-        await BirthdayMod.deleteMany({});
-        res.json({message: 'Data is cleared Buddy!'});
+        res.json(toursInfo);
     }
     catch(err){
-
+        (res.status(500).json({err:err.message}))
     }
 })
 
+app.post('/removeElement', async(req,res) => {
+    try{
+        const id = req.body.id;
+        console.log("id: ", id);
+        const tours = await toursModel.find({});
+        console.log("Before Deleting: ", tours.length);
+        const found = await toursModel.findOne({id});
+   
+        
+        if(found){
+            console.log("yews greater than 0");
+            
+            await toursModel.deleteOne({id});
+            const newTours = await toursModel.find({});
+            console.log("After Deleting: ", newTours.length);
+        }
+    
+        res.json({ message: 'Tour removed successfully' });
+
+    }
+    catch(err){
+        (res.status(500).json({err:err.message}))
+    }
+})
 
 app.listen(port, () => console.log(`listening on ${port}`) );
 

@@ -8,6 +8,30 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.ToursContainer{
+  position:relative;
+  text-align:center;
+  
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+
+}
+.toursCard{
+  
+  box-shadow:0 2px 5px;
+  width:60%;
+  background:rgb(244, 198, 238);
+}
+.priceName{
+  display:flex;
+  justify-content:space-between;
+}
+.info{
+  font-size:15px;
+  background:rgb(139, 234, 139)
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
