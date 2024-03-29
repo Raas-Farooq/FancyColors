@@ -1,5 +1,5 @@
 body {
-  background:rgb(46, 218, 215);
+  background:rgb(198, 91, 220);
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -23,6 +23,7 @@ body {
   box-shadow:0 2px 5px;
   width:60%;
   background:rgb(244, 198, 238);
+  margin-bottom: 30px;
 }
 .priceName{
   display:flex;
@@ -51,4 +52,13 @@ code {
   display:flex;
   gap:20px;
   margin-bottom:20px;
+}
+.remove{
+  margin-bottom:5px;
+  height:30px;
+  width:100%;
+  cursor:pointer
+}
+.remove:hover{
+  background:rgb(198, 91, 220);
 }

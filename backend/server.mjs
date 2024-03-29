@@ -53,8 +53,8 @@ app.get('/load', async(req,res) => {
         // * if you wanted to load all the data again then you can run the below code
         // await toursModel.deleteMany();
         // const mydata = await receiveData();
-
         // await toursModel.insertMany(mydata);
+        
         // const tours = await toursModel.find({});
         console.log("toursModel:  ", toursInfo);
         if(toursInfo.length === 0){
