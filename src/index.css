@@ -62,11 +62,20 @@ code {
 .remove:hover{
   background:rgb(198, 91, 220);
 }
+.refresh{
+  position:absolute; 
+  left:44%
+}
 @media screen and (max-width:770px){
   .toursCard{
     width:50%;
   }
   .my-img{
     width: 85%;
+  }
+}
+@media screen and (max-width:600px){
+  .refresh{
+    left:38%;
   }
 }

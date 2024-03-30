@@ -40,7 +40,7 @@ return (
     
     <div>
       <MapTours tours={myTours} />
-      <button className="refresh btn btn-danger" onClick={handleRefresh} style={{position:"absolute", left:"44%"}} > LoadAllData</button>
+      <button className="refresh btn btn-danger" id="refresh" onClick={handleRefresh} > LoadAllData</button>
     </div>
    
    
