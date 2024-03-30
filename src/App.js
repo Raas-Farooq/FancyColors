@@ -1,7 +1,10 @@
 import React,{useState,useEffect} from 'react';
 import {v4 as uuidv4} from 'uuid'; 
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import ShowTours from './displayTours';
+import MapTours from './MappingTours.js';
+
 
 function App(){
   const [myTours, setTours] = useState([]);
@@ -17,42 +20,30 @@ function App(){
   }, []);
 
 
-  function getClicked(target){
-    const container = document.querySelector('.ToursContainer');
-    const specialId = target.id;
-    console.log("specialId: ", specialId);
-    const tourCard = target.closest('.toursCard');
-    if (tourCard) {
-      fetch('http://localhost:5000/removeElement', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body:JSON.stringify({id: specialId })
-      })
-      
-      .then(response => response.json()).then(
-        data => {
-          console.log("this is the Data: ", data);
-        }).catch(err => {
-          console.log("Love the Weaknesses Of Life: ", err);
-        })
-        tourCard.remove(tourCard);
-    }
-    // container.remove(target);
-  }
+  
 
+function handleRefresh(){
+  console.log("loaded");
+  fetch('http://localhost:5000/loadData').then(
+    response => response.json()
+  ).then(data => {
+    console.log("my recieved Data: ", data);
+    setTours(data);
+  }).catch(err => {
+    console.log("you dont have enough Errs : ", err);
+  })
+}
 
 return (
   <div>
     <h2> Tours Of Life</h2>
-    <div className="ToursContainer">
-    {myTours.map(tour => {
-        return (
-           <div class="toursCard"><ShowTours tour={tour} remove={getClicked} /> </div>
-        )
-      })}
+    
+    <div>
+      <MapTours tours={myTours} />
+      <button className="refresh btn btn-danger" onClick={handleRefresh} style={{position:"absolute", left:"44%"}} > LoadAllData</button>
     </div>
+   
+   
   </div>
 )
 

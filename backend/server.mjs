@@ -72,6 +72,24 @@ app.get('/load', async(req,res) => {
     }
 })
 
+app.get('/loadData', async(req,res) => {
+    try{
+        
+        
+        await toursModel.deleteMany({});
+
+        const allTours = await receiveData();
+        await toursModel.insertMany(allTours);
+
+        const tours = await toursModel.find({});
+        res.json(tours);
+
+    }
+    catch(err){
+        (res.status(500).json({err:err.message}))
+    }
+})
+
 app.post('/removeElement', async(req,res) => {
     try{
         const id = req.body.id;
