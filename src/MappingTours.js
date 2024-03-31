@@ -3,10 +3,11 @@ import ShowTours from './displayTours';
 import './index.css';
 
 function Mapping({tours}){
-
+  
     function getClicked(target){
         const container = document.querySelector('.ToursContainer');
         const specialId = target.id;
+        console.log("target: ", target);
         console.log("specialId: ", specialId);
         const tourCard = target.closest('.toursCard');
         if (tourCard) {
@@ -15,22 +16,23 @@ function Mapping({tours}){
             headers: {
               'Content-Type': 'application/json'
             },
-            body:JSON.stringify({id: specialId })
+            body:JSON.stringify({id:target.id })
           })
           
           .then(response => response.json()).then(
             data => {
-              console.log("this is the Data: ", data);
+              console.log("after Removing: ", data);
+  
             }).catch(err => {
               console.log("Love the Weaknesses Of Life: ", err);
             })
             tourCard.remove(tourCard);
         }
-        // container.remove(target);
       }
     console.log("Your Tours Received: ", tours);
     return(
         <div className="ToursContainer">
+          {console.log("tours Inside Mapping: ", tours)} 
             {tours.map(tour => {
                 return (
                 <div class="toursCard"><ShowTours tour={tour} remove={getClicked} /> </div>

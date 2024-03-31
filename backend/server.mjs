@@ -104,10 +104,11 @@ app.post('/removeElement', async(req,res) => {
             
             await toursModel.deleteOne({id});
             const newTours = await toursModel.find({});
+            res.json(newTours);
             console.log("After Deleting: ", newTours.length);
         }
     
-        res.json({ message: 'Tour removed successfully' });
+        res.json(tours);
 
     }
     catch(err){
