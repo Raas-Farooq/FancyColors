@@ -72,6 +72,7 @@ app.get('/load', async(req,res) => {
     }
 })
 
+
 app.get('/loadData', async(req,res) => {
     try{
         
@@ -97,8 +98,7 @@ app.post('/removeElement', async(req,res) => {
         const tours = await toursModel.find({});
         console.log("Before Deleting: ", tours.length);
         const found = await toursModel.findOne({id});
-   
-        
+
         if(found){
             console.log("yews greater than 0");
             
@@ -107,8 +107,10 @@ app.post('/removeElement', async(req,res) => {
             res.json(newTours);
             console.log("After Deleting: ", newTours.length);
         }
-    
-        res.json(tours);
+        else{
+            res.json(tours);
+        }
+        
 
     }
     catch(err){
