@@ -2,60 +2,47 @@ import React,{useState,useEffect,useRef} from 'react';
 import {v4 as uuidv4} from 'uuid'; 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
-import ShowTours from './displayTours';
-import MapTours from './MappingTours.js';
+import Reviews from './data.mjs';
+// import ShowTours from './displayTours';
+import MapReviews from './MappingReviews.js';
 
 
 function App(){
-  const [myTours, setTours] = useState([]);
+  const [myReviews, setReviews] = useState([]);
+  const [currentReview, setCurrentReview] = useState(null);
   const [upload, setUpload] = useState(false);
-  // const forceUpdate = useRef(null);
-  console.log("Tours immediate: ", myTours);
-  
-  useEffect(() => {
-    setUpload(true)
-    fetch('http://localhost:5000/load').then(response => response.json()).
-    then(data => {
-      console.log('Insight of data: ', data);
-      setTours(data);
-      // setUpload(false);
-    }).catch(err => {
-      setUpload(false)
-      console.log("Effort:lets seee the Problem and Solve it by THe Help Of Allah(SWT)  ", err);
-    })
-  }, []);
- 
 
-  function handleRefresh(){
-    console.log("loaded");
-    setUpload(true)
-    fetch('http://localhost:5000/loadData').then(
-      response => response.json()
-    ).then(data => {
-      setTours(data);
-      // setUpload(false);
+useEffect(() => {
+
+  fetch('http://localhost:5000/load').
+  then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
     }
-    ).catch(err => {
-      console.log("you dont have enough Errs : ", err);
-      setUpload(false);
-    })
-  }
-
+    return response.json();
+  })
+  .
+  then(data => {
+    setUpload(true);
+    console.log("getFetched: ", data);
+    setReviews(data);
+    setCurrentReview(data[0] || null);
+  }).
+  catch(err => console.log("Belive in Resolving Errs: ", err));
+  
+}, []);
   return (
-      <div>
-        {upload ?(
-          <div>
-              <h2> Tours Of Life</h2>
-              <div>
-                <MapTours tours={myTours}  />
-              </div>
-          </div>
-          ) : (
-          <h2> Still Waiting For You</h2>
-        )}
-          <button className="refresh btn btn-danger" id="refresh" onClick={handleRefresh} > LoadAllData</button>
-      </div> 
-      )
+    <>
+      {(!myReviews.length)?(<div> <h2> Waiting For Reviews</h2></div>)
+    : (<>
+      {console.log("My REVIEWS IN APP: ",myReviews)}
+      <h3> Alhamdulila! Back Again</h3>
+      <MapReviews reviews = {myReviews} currentReview = {currentReview} />
+      
+    </>)
+    }
+    </>
+  )
 }
 export default App;
 
