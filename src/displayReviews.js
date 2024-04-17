@@ -9,19 +9,24 @@ function DisplayReviews({review, handleNext,handlePrev,handleRandom})
 const [expand, setExpand] = useState(false)
 // console.log("DisplayReview review[0].id", review[0].id);
 console.log("review in DisplayReview", review);
-    console.log("review.id", review.id);
-    return (
-        // <div>
-        //     <h3> LOvE ALLah(SWT)</h3>
-        // </div>
+const reviewItem = Array.isArray(review) ? review[0] : review;
 
-        <div className="review" id={review.id} key={review.id}>
-            <img className="my-img" src={review.image} height="150px" />
+  // Access id based on the type of reviewItem
+  const id = reviewItem ? reviewItem.id : null;
+
+  console.log("reviewItem in DisplayReview", reviewItem);
+  console.log("review.id", id);
+
+    return (
+        <div className="review" id={reviewItem.id} key={reviewItem.id}>
+            <img className="my-img" src={reviewItem.image} height="150px" />
             <div class="priceName">
-                <h5 className="name"> {review.name}</h5> 
+                <h3 className="name"> {reviewItem.name}</h3> 
+                <h6 className="name"> {reviewItem.job}</h6> 
+
             </div>
             <p className="info">
-                ${review.text}
+                {reviewItem.text}
             </p>  
             <button className="btn btn-primary" onClick={() => handlePrev()}><ArrowLeft /></button>
             <button className="btn btn-primary" onClick={handleNext}><ArrowRight /></button>
@@ -29,8 +34,12 @@ console.log("review in DisplayReview", review);
             <button className="btn btn-primary random" onClick={handleRandom}> Random </button>
             </div>  
         </div>
+        // { <div> Be Aware Of Your Thoughts and New Desires/Expectations</div> 
     )
     
 }
 
 export default DisplayReviews
+
+
+  

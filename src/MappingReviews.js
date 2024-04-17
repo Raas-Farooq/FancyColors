@@ -11,10 +11,10 @@ let [id, setId] = useState(1);
 
   
   useEffect(() => {
-    console.log("UseEffect of MApping RREVIEWS: ", reviews[0]);
-    if (reviews.length > 0 && !initialReviewSet) {
-      const arrayReview = [reviews[0]];
-      setCurrent(arrayReview); // Set the first review as current when reviews array changes
+    // console.log("UseEffect of MApping RREVIEWS: ", reviews[0]);
+    if(reviews.length > 0 && !initialReviewSet) {
+       console.log("reviews in USEFFECT: ", reviews);
+      setCurrent([reviews[0]]); // Set the first review as current when reviews array changes
 
       setInitialReviewSet(true);
     }
@@ -42,6 +42,7 @@ let [id, setId] = useState(1);
         setId(id);
       }
       console.log("handleNext Id: ", id);
+      console.log("Type Of handleNext Id: ", typeof(id));
       fetch(`http://localhost:5000/nextReview?id=${id}`).
       then(response => response.json().
       then(data => {
@@ -55,7 +56,8 @@ let [id, setId] = useState(1);
     function handlePrev(){
     
       if(id === 1){
-        setId(reviews.length);
+        id = reviews.length;
+        setId(id);
       }
       else{
         id = id - 1;
@@ -96,8 +98,12 @@ let [id, setId] = useState(1);
    
     return(
       <div class="ParentContainer">
-      {/* <h2> Happy Effort Day! Kainaat K HAQ BADSHAH </h2> */}
-        {<ShowReviews review={current} handleNext={handleNext} handlePrev={handlePrev} handleRandom ={handleRandom}/>}
+      {console.log("current in Mapping Review Return: ", current)}
+      {(!current.length) ? 
+        (<h3> Your Review is Being Loaded</h3>): 
+        (<ShowReviews review={current} handleNext={handleNext} handlePrev={handlePrev} handleRandom ={handleRandom}/>)
+      }
+        
       </div>
     )
 

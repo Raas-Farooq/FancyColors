@@ -39,9 +39,9 @@ mongoose.connect('mongodb://localhost:27017/reviewsDb',{
 const reviewsSchema = new mongoose.Schema({
     id:Number,
     name:String,
-    info:String,
+    job:String,
     image:String,
-    price:String
+    text:String
 });
 
 const reviewsModel = mongoose.model('reviewsModel',reviewsSchema);
@@ -49,6 +49,7 @@ const reviewsModel = mongoose.model('reviewsModel',reviewsSchema);
 
 app.get('/load', async(req,res) => {
     try{
+        await reviewsModel.deleteMany({});
         const allPeople = await reviewsModel.find({});
         console.log("AllPeople: outside ", allPeople);
         if(allPeople.length === 0){
@@ -69,12 +70,14 @@ app.get('/load', async(req,res) => {
 
 app.get('/nextReview', async(req, res) => {
     try{
-        const id = req.query.id;
-        console.log("id inside nextRevie: ", id);
+        let id = req.query.id;
+        console.log("id inside nextRevie: ", typeof(id));
+        id = parseInt(id);
         const people = await reviewsModel.find({});
+        console.log("These are the People in Next: ", typeof(people[0].id));
         const person = people.filter(user => user.id === id);
         console.log('Person: ', person);
-        res.json({person});
+        res.json(person);
     }
     catch(err){
         console.log("Be proActive: ", err);
@@ -85,11 +88,12 @@ app.get('/nextReview', async(req, res) => {
 
 app.get('/prevReview', async(req, res) => {
     try{
-        const id = req.query.id;
-        console.log("id inside nextRevie: ", id);
+        let id = req.query.id;
+        console.log("typeof id inside prevRevie: ", id);
+        id = parseInt(id);
         const people = await reviewsModel.find({});
         const person = people.filter(user => user.id === id);
-        res.json({person});
+        res.json(person);
     }
     catch(err){
         console.log("Be proActive: ", err);
@@ -99,11 +103,11 @@ app.get('/prevReview', async(req, res) => {
 
 app.get('/random', async(req, res) => {
     try{
-        const id = req.query.id;
-        console.log("id inside nextRevie: ", id);
+        let id = req.query.id;
+        id = parseInt(id);
         const people = await reviewsModel.find({});
         const person = people.filter(user => user.id === id);
-        res.json({person});
+        res.json(person);
     }
     catch(err){
         console.log("Be proActive: ", err);
