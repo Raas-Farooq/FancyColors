@@ -74,15 +74,25 @@ let [id, setId] = useState(1);
     }
 
     function handleRandom(){
-      const num = Math.floor(Math.random() * reviews.length+1);
+      let num = Math.floor(Math.random() * reviews.length+1);
+      console.log("Reviews.length", reviews.length);
+      if(num === id){
+        num++;
+        if(num === reviews.length){
+          num = 1;
+        }
+      }
+      console.log("This is the Id", id);
+      console.log("This is the random NUm", num);
       fetch(`http://localhost:5000/random?id=${num}`).then
       (response => response.json()).
       then(data => {
-        console.log("DATA IN RANDOM: ", data);
+        // console.log("DATA IN RANDOM: ", data);
         setCurrent(data);
       }).catch(
         err => console.log("Alhamdulila What he has Decreed!: ", err)
-      )   
+      ) 
+      setId(num);  
     }
     // const [index, setIndex] = useState(1)
     // console.log("reviews in Mapping: ", reviews);
@@ -98,7 +108,7 @@ let [id, setId] = useState(1);
    
     return(
       <div class="ParentContainer">
-      {console.log("current in Mapping Review Return: ", current)}
+      {/* {console.log("current in Mapping Review Return: ", current)} */}
       {(!current.length) ? 
         (<h3> Your Review is Being Loaded</h3>): 
         (<ShowReviews review={current} handleNext={handleNext} handlePrev={handlePrev} handleRandom ={handleRandom}/>)

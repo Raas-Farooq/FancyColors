@@ -8,14 +8,14 @@ function DisplayReviews({review, handleNext,handlePrev,handleRandom})
 {
 const [expand, setExpand] = useState(false)
 // console.log("DisplayReview review[0].id", review[0].id);
-console.log("review in DisplayReview", review);
+// console.log("review in DisplayReview", review);
 const reviewItem = Array.isArray(review) ? review[0] : review;
 
   // Access id based on the type of reviewItem
   const id = reviewItem ? reviewItem.id : null;
 
-  console.log("reviewItem in DisplayReview", reviewItem);
-  console.log("review.id", id);
+//   console.log("reviewItem in DisplayReview", reviewItem);
+//   console.log("review.id", id);
 
     return (
         <div className="review" id={reviewItem.id} key={reviewItem.id}>
@@ -25,7 +25,7 @@ const reviewItem = Array.isArray(review) ? review[0] : review;
                 <h6 className="name"> {reviewItem.job}</h6> 
 
             </div>
-            <p className="info">
+            <p className="info" style={{fontSize:"12px"}} >
                 {reviewItem.text}
             </p>  
             <button className="btn btn-primary" onClick={() => handlePrev()}><ArrowLeft /></button>
