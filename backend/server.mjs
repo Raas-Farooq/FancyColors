@@ -49,7 +49,7 @@ const reviewsModel = mongoose.model('reviewsModel',reviewsSchema);
 
 app.get('/load', async(req,res) => {
     try{
-        await reviewsModel.deleteMany({});
+        // await reviewsModel.deleteMany({});
         const allPeople = await reviewsModel.find({});
         console.log("AllPeople: outside ", allPeople);
         if(allPeople.length === 0){
