@@ -2,33 +2,29 @@ import React,{useState,useRef,useEffect} from 'react';
 
 
 function Links(props){
-    // console.log("cards inside Link", props.cards)
-    const myList=props.cards.map(card => card.category);
-    let consistency = ['All']
-    const separate = [...new Set(myList)]
+    // console.log("Tabs in LINK: ", props.allTabs)
     
-    consistency.push(...separate);
-
-    // console.log("consistency", consistency);
-    const handleClick = (e) => {
-        e.preventDefault();
-        console.log("e.target: ", e.target.textContent);
-        const link = e.target.textContent;
-        props.handleLinks(e, link)
-    }
+    // const handleClick = (e) => {
+    //     e.preventDefault();
+    //     console.log(" Clicked ");
+    //     props.current(e.target);
+    // }
+    
     return(
-        <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
-            {consistency.map(link => {
+        <div style={{display:"flex", justifyContent:"center", alignItems:"center", gap:'20px'}}>
+            
+            <div>
+            {props.allTabs.map((tab,ind) => 
+            {
                 return(
-                    <div >
-                        <ul style={{display:"flex",listStyle:"none"}}>
-                        <button className="btn btn-danger" onClick={(e) => handleClick(e)}>{link}</button>
-                        </ul>
+                    <div key={tab.id}>
+                        <botton onClick={()=> props.current(ind)} className="btn btn-warning" style={{marginBottom:"15px"}}>{tab.company}</botton>
                     </div>
-                )
+                    )
                 
             })}
-            
+                
+            </div>
         </div>
         
     )

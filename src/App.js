@@ -1,21 +1,38 @@
 import React,{useState,useEffect,useRef} from 'react';
 import {v4 as uuidv4} from 'uuid'; 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import TabsData from './tabsData';
 import './index.css';
-import Cards from './data.mjs';
-import ShareCards from './CardSharing.js';
 // import MapReviews from './MappingReviews.js';
 
 
 function App(){
-//  console.log("CArds: ",Cards);
+  const [tabs, setTabs] = useState([])
+  const myCompanies = ['TOMMY', 'BIGDROP']
+  useEffect(() => {
+
+  console.log("App UseEffect Focusing")
+  fetch('http://localhost:5000/loaded').then(response => 
+  response.json()).
+  then(data => {
+    setTabs(data);
+  }).
+    catch(err => console.log("Here is THe Challenge: ", err))
+
+  },[])
 
  return(
-  <>
-    <h2> Ultimate Destination JANNAT </h2>
-    <ShareCards myCards={Cards} />
-  </>
- )
+    <>
+    {(!tabs.length)? <h2> Still Loading..</h2> 
+    :
+     <>
+      
+      <TabsData myTabs={tabs} />
+     </>
+    }
+    
+    </>
+  )
 }
 export default App;
 
