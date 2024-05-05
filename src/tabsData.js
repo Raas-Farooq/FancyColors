@@ -1,31 +1,37 @@
 import React,{useState,useEffect,useRef} from 'react';
 import { ArrowRight } from 'react-bootstrap-icons';
-import Links from './links.js';
-import DisplayTab from './displayTab';
+import ShowSlides from './displayTab';
 import './index.css';
 
-function TabsData({myTabs}){
-  
-  const [num, setNum] = useState(0);
-  const [tab, setTab]= useState(myTabs[(num)])
-  // console.log("tab inside TABSSHARING:", tab);
-  
-  const clicked = (data) => {
-    console.log("data: ",data);
-    // const clickedTab = myTabs.filter(tab => tab.company ===data.textContent);
-    // console.log("Clicked Tab: ", clickedTab)
-    setNum(data)
-    console.log("data After Setting: ", num)
-  }
+function SlidesMapping(props){
+    const [slideNum, setSlideNum] = useState(0);
+    const [slide, setSlide] = useState(props.views[slideNum]);
+    const [allSlides, setAllSlide] = useState(props.views);
 
-  return(
-   <div style={{display:"flex", gap:"100px"}}>
-    <Links allTabs={myTabs} current = {clicked} num={num} />
-    <DisplayTab tab={myTabs[num]} />
-   </div>
-  )  
+    function handleIndex(val){
+        console.log("Val Handle Index: ",val)
+        setSlideNum(val);
+        
+    }
+    useEffect(() => {
+        setSlide(allSlides[slideNum])
+        // console.log("slide Num Handle Index useeFFECT: ",slideNum);
+        // console.log("Current Slide useeFFECT: ",slide)
+    },[slideNum])
 
+
+    // console.log("slide: ", slide);
+    return(
+        <>
+            <h3>Allah(SWT) mercy</h3>
+            <div style={{ display:"flex", justifyContent:"center"}}>
+                <ShowSlides slide={slide} allSlides={allSlides} handleIndex={handleIndex}></ShowSlides>
+            </div>
+            
+        </>
+    )
+  
 }
 
-export default TabsData
 
+export default SlidesMapping

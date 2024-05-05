@@ -7,13 +7,25 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-.ParentContainer{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center
+img{
+  border-radius:20%;
 }
-.hide{
-  display:none
+.myCard{
+  /* position:relative; */
+  display:flex;
+  justify-content:center;
+  box-shadow:0 2px 5px;
+  width:500px;
+  height:300px;
+  text-align:center;
+}
+.myBtn{
+  height:50px;
+  margin-top:20%;
+  margin-right:20px;
+}
+.nextBtn{
+  height:50px;
+  margin-top:20%;
+  margin-left:20px;
 }
