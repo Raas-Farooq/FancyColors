@@ -29,3 +29,16 @@ img{
   margin-top:20%;
   margin-left:20px;
 }
+.quoteStyle{
+ 
+  display:flex;
+  justify-content:center;
+  flex-direction:column;
+}
+.superColor{
+  text-align:center;
+  color:white;
+  box-shadow:0 2px 5px;
+  width:400px;
+  
+}

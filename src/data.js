@@ -1,38 +1,54 @@
-const people = [
+const quotes  = [
     {
       id: 1,
-      image: 'https://www.course-api.com/images/people/person-1.jpeg',
-      // image:'images/Abilities.jpg',
-      name: 'maria ferguson',
-      title: 'office manager',
       quote:
         'Fingerstache umami squid, kinfolk subway tile selvage tumblr man braid viral kombucha gentrify fanny pack raclette pok pok mustache.',
     },
     {
       id: 2,
-      image: 'https://www.course-api.com/images/people/person-4.jpeg',
-      // image:'images/abilities.jpg',
-      name: 'john doe',
-      title: 'regular guy',
       quote:
-        'Gastropub sustainable tousled prism occupy. Viral XOXO roof party brunch actually, chambray listicle microdosing put a bird on it paleo subway tile squid umami.',
+        '(those who fear Allaah) within their own homes is restricted, as is also the ',
     },
     {
       id: 3,
-      image: 'https://www.course-api.com/images/people/person-3.jpeg',
-      name: 'peter smith',
-      title: 'product designer',
       quote:
-        'Drinking vinegar polaroid street art echo park, actually semiotics next level butcher master cleanse hammock flexitarian ethical paleo.',
+        'When men see women in one gathering, this is a cause of corruption in the religion and morals, and provokes desires in a forbidden manner',
     },
     {
       id: 4,
-      image: 'https://www.course-api.com/images/people/person-2.jpeg',
-      name: 'susan andersen',
-      title: 'the boss',
       quote:
-        'Marfa af yr 3 wolf moon kogi, readymade distillery asymmetrical seitan kale chips fingerstache cloud bread mustache twee messenger bag. ',
+        'after thinking about them, let all those who want to earn the pleasure of Allaah ',
     },
+    {
+      id: 5,
+      quote:
+        'use paper plates; use laundry services; have the house cleaned by workers who are supervised by the man of the house',
+    },
+    {
+      id: 6,
+      quote:
+      'In the Name of Allaah, Most Gracious, Most Merciful Praise be to Allaah. We praise Him and seek His help and forgiveness' ,
+    },
+    {
+      id: 7,
+      quote:
+      'and giving life and death; some of the scenes in them show people bringing the dead back to life by using a cross or a magic wand' ,
+    },
+    {
+      id: 8,
+      quote:
+      'Entire lists can be composed of the harmful and corrupting influence of modern devices and gadgets; after thinking about them, let all those who want to earn the pleasure of Allaah The Almighty and avoid His wrath do what they can to change the situation.' ,
+    },
+    {
+      id: 9,
+      quote:
+      'In the Name of Allaah, Most Gracious, Most Merciful Praise be to Allaah. We praise Him and seek His help and forgiveness' ,
+    },
+    {
+      id: 10,
+      quote:
+        'When men see women in one gathering, this is a cause of corruption in the religion and morals, and provokes desires in a forbidden manner',
+    }
   ];
   
-  export default people;
+  export default quotes;
