@@ -8,6 +8,10 @@
 # testing
 /coverage
 
+#ignoring components
+src/links.js
+src/data.js
+
 # production
 /build
 
